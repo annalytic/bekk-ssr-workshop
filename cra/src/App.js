@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { Heading, Text, Wrap, Card } from "@vygruppen/spor-react";
+import { Wrap, Card } from "@vygruppen/spor-react";
+import Header from "./components/Header";
 import "./App.css";
-import { color } from "@chakra-ui/react";
 
 function App() {
   const [cats, setCats] = useState([]);
@@ -15,11 +15,10 @@ function App() {
     "yellow",
     "orange",
   ];
-  function get_random(list) {
-    return list[Math.floor(Math.random() * list.length)];
-  }
 
-  console.log(get_random(cardColors));
+  const get_random = (list) => {
+    return list[Math.floor(Math.random() * list.length)];
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,27 +31,13 @@ function App() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(cats);
-  }, [cats]);
-
   return (
     <div className="app">
-      <header className="app-header">
-        <Heading textStyle="2xl">Velkommen til SSR workshop</Heading>
-        <Text textStyle="md" pt={6} pb={8}>
-          Denne appen er laget med <b>Create React App</b>. Oppgaven din er å
-          migrere den over til <b>Next.js</b>. Oppskrift for hvordan det gjøres
-          finner du.
-          <a href="https://nextjs.org/docs/migrating/from-create-react-app">
-            her
-          </a>
-          .
-        </Text>
-      </header>
+      <Header />
       <main className="app-main">
         <Wrap gap={3} justify="center">
           {cats.map((cat) => (
+            /* Dette må burde flyttes inn i en Card komponent */
             <Card
               key={cat.id}
               colorScheme={get_random(cardColors)}
