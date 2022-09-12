@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Wrap, Card } from "@vygruppen/spor-react";
-import Header from "./components/Header";
-import "./App.css";
+import { Header } from "./components/Header";
+import styled from "@emotion/styled";
+
+const AppContainer = styled.div`
+  text-align: center;
+  padding: 0 20px;
+  margin: 0 auto;
+`;
 
 function App() {
   const [cats, setCats] = useState([]);
@@ -16,7 +22,7 @@ function App() {
     "orange",
   ];
 
-  const get_random = (list) => {
+  const getRandom = (list) => {
     return list[Math.floor(Math.random() * list.length)];
   };
 
@@ -32,7 +38,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
+    <AppContainer>
       <Header />
       <main className="app-main">
         <Wrap gap={3} justify="center">
@@ -40,7 +46,7 @@ function App() {
             /* Dette må burde flyttes inn i en Card komponent */
             <Card
               key={cat.id}
-              colorScheme={get_random(cardColors)}
+              colorScheme={getRandom(cardColors)}
               p={4}
               size="lg"
               width="fit-content"
@@ -60,7 +66,7 @@ function App() {
           ))}
         </Wrap>
       </main>
-    </div>
+    </AppContainer>
   );
 }
 
