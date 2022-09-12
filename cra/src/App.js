@@ -43,7 +43,7 @@ function App() {
         <Text textStyle="md" pt={6} pb={8}>
           Denne appen er laget med <b>Create React App</b>. Oppgaven din er å
           migrere den over til <b>Next.js</b>. Oppskrift for hvordan det gjøres
-          finner du{" "}
+          finner du.
           <a href="https://nextjs.org/docs/migrating/from-create-react-app">
             her
           </a>
