@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Wrap, Card } from "@vygruppen/spor-react";
 import { Header } from "./components/Header";
+import { Navigation } from "./components/Navigation";
 import styled from "@emotion/styled";
 
 const AppContainer = styled.div`
@@ -39,9 +40,10 @@ function App() {
 
   return (
     <AppContainer>
+      <Navigation />
       <Header />
       <main className="app-main">
-        <Wrap gap={3} justify="center">
+        <Wrap gap={4} justify="center">
           {cats.map((cat) => (
             /* Dette må burde flyttes inn i en Card komponent */
             <Card
