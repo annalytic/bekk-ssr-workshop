@@ -11,7 +11,8 @@ const AppContainer = styled.div`
 `;
 
 function App() {
-  const [characters, setCharacters] = useState([]);
+  const [episodes, setEpisodes] = useState([]);
+
   const cardColors = [
     "white",
     "grey",
@@ -29,42 +30,60 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const resp = await fetch(
-        "https://rickandmortyapi.com/api/character/1,2,3,4,5,6,7,8,9,10"
+          "https://rickandmortyapi.com/api/episode"
       );
-      const characters = await resp.json();
-      setCharacters(characters);
+      const episodes = await resp.json();
+      setEpisodes(episodes.results);
     };
     fetchData();
   }, []);
 
-  console.log("characters", characters);
+  const ShowCard = (props) => {
+    const [data, setData] = useState({});
+    useEffect(() => {
+      const getCharacter = async () => {
+        const response = await fetch(
+            props.url
+        );
+        const responseJson = await response.json();
+        console.log("json", responseJson);
+        setData(responseJson);
+      };
+      getCharacter();
+    }, []);
+
+    return (
+        <Card
+            key={data.id}
+            colorScheme={getRandom(cardColors)}
+            p={4}
+            size="lg"
+            width="fit-content"
+        >
+          <figure key={data.id}>
+            <img
+                id={data.id}
+                src={data.image}
+                alt={data.name}
+                width="400px"
+                height="400px"
+            />
+            <figcaption>{data.name}</figcaption>
+          </figure>
+          <span>{`release dato: ${moment().format("LL")}`}</span>
+        </Card>
+    );
+  };
 
   return (
     <AppContainer>
       <Header />
       <main className="app-main">
         <Wrap gap={3} justify="center">
-          {characters.map((character) => (
-            /* Dette må burde flyttes inn i en Card komponent */
-            <Card
-              key={character.id}
-              colorScheme={getRandom(cardColors)}
-              p={4}
-              size="lg"
-              width="fit-content"
-            >
-              <figure key={character.id}>
-                <img
-                  id={character.id}
-                  src={character.image}
-                  alt={character.name}
-                  width="400px"
-                  height="400px"
-                />
-                <figcaption>{character.name}</figcaption>
-              </figure>
-              <span>{`Dagens dato: ${moment().format("LL")}`}</span>
-            </Card>
+          {episodes.map((episode) => (
+              <div>
+              {episode.characters.map(url => <ShowCard url={url}/> )}
+              </div>
           ))}
         </Wrap>
       </main>
