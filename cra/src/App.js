@@ -70,7 +70,18 @@ function App() {
             />
             <figcaption>{data.name}</figcaption>
           </figure>
-          <span>{`release dato: ${moment().format("LL")}`}</span>
+          {/* Todo : bruke css for linjeskift*/}
+          <span>{`Dagens dato: ${moment().format("LL")}`}</span>
+          <br/>
+          <span>{`Location : ${data.location?.name}`}</span>
+          <br/>
+          <span>{`Species : ${data.species}`}</span>
+          <br/>
+          <span>{`Status : ${data.status}`}</span>
+          <br/>
+          <span>{`Air date : ${props.airDate}`}</span>
+          <br/>
+          <span>{`Episode : ${props.episode}`}</span>
         </Card>
     );
   };
@@ -82,7 +93,7 @@ function App() {
         <Wrap gap={3} justify="center">
           {episodes.map((episode) => (
               <div>
-              {episode.characters.map(url => <ShowCard url={url}/> )}
+              {episode.characters.map(url => <ShowCard url={url} airDate={episode.air_date} episode={episode.episode}/> )}
               </div>
           ))}
         </Wrap>
