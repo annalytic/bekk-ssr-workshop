@@ -92,9 +92,11 @@ function App() {
       <main className="app-main">
         <Wrap gap={3} justify="center">
           {episodes.map((episode) => (
-              <div>
-              {episode.characters.map(url => <ShowCard url={url} airDate={episode.air_date} episode={episode.episode}/> )}
-              </div>
+              <>
+                {episode.characters.map(url =>
+                  <ShowCard url={url} airDate={episode.air_date} episode={episode.episode}/>
+                )}
+              </>
           ))}
         </Wrap>
       </main>
