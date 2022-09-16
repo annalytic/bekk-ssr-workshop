@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import moment from "moment";
-import { Wrap, Card } from "@vygruppen/spor-react";
+import { Wrap } from "@vygruppen/spor-react";
 import { Header } from "./components/Header";
+import { ShowCard } from "./components/Card";
 import styled from "@emotion/styled";
 
 const AppContainer = styled.div`
@@ -11,60 +11,28 @@ const AppContainer = styled.div`
 `;
 
 function App() {
-  const [characters, setCharacters] = useState([]);
-  const cardColors = [
-    "white",
-    "grey",
-    "blue",
-    "green",
-    "teal",
-    "yellow",
-    "orange",
-  ];
-
-  const getRandom = (list) => {
-    return list[Math.floor(Math.random() * list.length)];
-  };
+  const [episodes, setEpisodes] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const resp = await fetch(
-        "https://rickandmortyapi.com/api/character/1,2,3,4,5,6,7,8,9,10"
-      );
-      const characters = await resp.json();
-      setCharacters(characters);
+      const resp = await fetch("https://rickandmortyapi.com/api/episode");
+      const episodes = await resp.json();
+      setEpisodes(episodes.results);
     };
     fetchData();
   }, []);
-
-  console.log("characters", characters);
 
   return (
     <AppContainer>
       <Header />
       <main className="app-main">
         <Wrap gap={3} justify="center">
-          {characters.map((character) => (
-            /* Dette må burde flyttes inn i en Card komponent */
-            <Card
-              key={character.id}
-              colorScheme={getRandom(cardColors)}
-              p={4}
-              size="lg"
-              width="fit-content"
-            >
-              <figure key={character.id}>
-                <img
-                  id={character.id}
-                  src={character.image}
-                  alt={character.name}
-                  width="400px"
-                  height="400px"
-                />
-                <figcaption>{character.name}</figcaption>
-              </figure>
-              <span>{`Dagens dato: ${moment().format("LL")}`}</span>
-            </Card>
+          {episodes.map((episode) => (
+            <>
+              {episode.characters.map((url) => (
+                <ShowCard url={url} episode={episode} />
+              ))}
+            </>
           ))}
         </Wrap>
       </main>
