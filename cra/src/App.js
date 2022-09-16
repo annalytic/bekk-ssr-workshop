@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Wrap } from "@vygruppen/spor-react";
 import { Header } from "./components/Header";
-import { ShowCard} from "./components/Card";
+import { ShowCard } from "./components/Card";
 import styled from "@emotion/styled";
 
 const AppContainer = styled.div`
@@ -15,9 +15,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const resp = await fetch(
-          "https://rickandmortyapi.com/api/episode"
-      );
+      const resp = await fetch("https://rickandmortyapi.com/api/episode");
       const episodes = await resp.json();
       setEpisodes(episodes.results);
     };
@@ -30,11 +28,11 @@ function App() {
       <main className="app-main">
         <Wrap gap={3} justify="center">
           {episodes.map((episode) => (
-              <>
-                {episode.characters.map(url =>
-                  <ShowCard url={url} episode={episode}/>
-                )}
-              </>
+            <>
+              {episode.characters.map((url) => (
+                <ShowCard url={url} episode={episode} />
+              ))}
+            </>
           ))}
         </Wrap>
       </main>
