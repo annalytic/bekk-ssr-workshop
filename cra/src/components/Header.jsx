@@ -25,6 +25,13 @@ export const Header = () => {
         </TextLink>
         .
       </Text>
+      <Text>
+        <b>Tips:</b> Anbefaler å kjøre opp /nextjs på port 3001, slik at dere
+        kan ha /cra og /nextjs oppe samtidig og sammenlikne dem. For å gjøre det
+        gå inn i package.json fila i /nextjs og endre linjen{" "}
+        <i>"start": "next start"</i> til <i>"start": "PORT=3001 next start"</i>{" "}
+        (mac) / <i>"start": "set PORT=3001 && next start"</i> (windows).
+      </Text>
     </StyledHeader>
   );
 };
