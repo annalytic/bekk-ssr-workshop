@@ -16,8 +16,11 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const resp = await fetch("https://rickandmortyapi.com/api/episode");
-      const episodes = await resp.json();
-      setEpisodes(episodes.results);
+      const episodesData = await resp.json();
+      // Henter alle karakterer for alle episoder. Blir for mye last for APIet og må i så fall håndteres bedre
+      // setEpisodes(episodesData.results);
+      // Bruker denne for å redusere mengden datahenting under utvikling
+      setEpisodes(episodesData.results.slice(0,1));
     };
     fetchData();
   }, []);
@@ -27,13 +30,11 @@ function App() {
       <Header />
       <main className="app-main">
         <Wrap gap={3} justify="center">
-          {episodes.map((episode) => (
-            <>
-              {episode.characters.map((url) => (
-                <ShowCard url={url} episode={episode} />
-              ))}
-            </>
-          ))}
+          {episodes.map((episode) => 
+              episode.characters.map((url) => (
+                <ShowCard url={url} episode={episode} key={`${url}-${episode.episode}`}/>
+              ))
+          )}
         </Wrap>
       </main>
     </AppContainer>

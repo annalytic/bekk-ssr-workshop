@@ -21,16 +21,31 @@ export const ShowCard = ({ url, episode: { episode, air_date } }) => {
 
   useEffect(() => {
     const getCharacter = async () => {
-      const response = await fetch(url);
-      const responseJson = await response.json();
-      setCharacter(responseJson);
+      try {
+        const response = await fetch(url);
+        const responseJson = await response.json();
+        setCharacter(responseJson);
+      } catch (error) {
+        console.log(`Kunne ikke laste karakter ${url}`);
+      }
     };
     getCharacter();
-  }, []);
+  }, [url]);
+
+  const checkIfValidDate = (date) => {
+    return moment(date).isValid();
+  };
+
+  const numberOfDaysBetween = () => {
+    const diffInDays = moment().diff(moment(air_date), "days");
+    return diffInDays;
+  };
+
+  if (character.id === undefined) return null;
 
   return (
     <Card
-      key={character.id}
+      key={`${episode}-${character.id}`}
       colorScheme={getRandom(cardColors)}
       p={4}
       size="lg"
@@ -44,14 +59,15 @@ export const ShowCard = ({ url, episode: { episode, air_date } }) => {
           width="400px"
           height="400px"
         />
-        <figcaption>{character.name}</figcaption>
       </figure>
-      <Text>{`Dagens dato: ${moment().format("LL")}`}</Text>
-      <Text>{`Location : ${character.location?.name}`}</Text>
-      <Text>{`Species : ${character.species}`}</Text>
-      <Text>{`Status : ${character.status}`}</Text>
-      <Text>{`Air date : ${air_date}`}</Text>
-      <Text>{`Episode : ${episode}`}</Text>
+      <Text>{`Name: ${character.name}`}</Text>
+      <Text>{`Location: ${character.location?.name}`}</Text>
+      <Text>{`Species: ${character.species}`}</Text>
+      <Text>{`Status: ${character.status}`}</Text>
+      <Text>{`Episode: ${episode}`}</Text>
+      {checkIfValidDate(air_date) && (
+        <Text>{`Days since air date: ${numberOfDaysBetween()}`}</Text>
+      )}
     </Card>
   );
 };
