@@ -13,17 +13,29 @@ const AppContainer = styled.div`
 function App() {
   const [episodes, setEpisodes] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const resp = await fetch("https://rickandmortyapi.com/api/episode");
-      const episodesData = await resp.json();
-      // Henter alle karakterer for alle episoder. Blir for mye last for APIet og må i så fall håndteres bedre
-      // setEpisodes(episodesData.results);
-      // Bruker denne for å redusere mengden datahenting under utvikling
-      setEpisodes(episodesData.results.slice(0,1));
+    useEffect(() => {
+      const fetchData = async () => {
+        fetch("https://rickandmortyapi.com/api/episode")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Fikk en status kode ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Henter alle karakterer for alle episoder. Blir for mye last for APIet og må i så fall håndteres bedre
+          // setEpisodes(episodesData.results);
+          // Bruker denne for å redusere mengden datahenting under utvikling
+          setEpisodes(data.results.slice(0,3));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
     fetchData();
   }, []);
+
+  if (episodes.length === 0) return <h1>Loading characters...</h1>
 
   return (
     <AppContainer>

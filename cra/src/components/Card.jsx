@@ -21,13 +21,19 @@ export const ShowCard = ({ url, episode: { episode, air_date } }) => {
 
   useEffect(() => {
     const getCharacter = async () => {
-      try {
-        const response = await fetch(url);
-        const responseJson = await response.json();
-        setCharacter(responseJson);
-      } catch (error) {
-        console.log(`Kunne ikke laste karakter ${url}`);
-      }
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Fikk en status kode ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setCharacter(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
     getCharacter();
   }, [url]);
@@ -41,7 +47,7 @@ export const ShowCard = ({ url, episode: { episode, air_date } }) => {
     return diffInDays;
   };
 
-  if (character.id === undefined) return null;
+  if (character?.id === undefined) return null;
 
   return (
     <Card
