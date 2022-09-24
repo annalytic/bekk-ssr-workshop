@@ -10,27 +10,36 @@ const AppContainer = styled.div`
   margin: 0 auto;
 `;
 
+const pageLimit = 3;
+
 function App() {
   const [characters, setCharacters] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+  const [url, setUrl] = useState("https://rickandmortyapi.com/api/character");
 
     useEffect(() => {
       const fetchData = async () => {
-        fetch("https://rickandmortyapi.com/api/character")
+        fetch(url)
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`Fikk en status kode ${response.status}`);
+            throw new Error(`Feilmelding med statuskode ${response.status}`);
           }
           return response.json();
         })
         .then((data) => {
-          setCharacters(data.results);
+          setCharacters((prev) => [...prev, ...data.results]);
+          setUrl(data.info.next)
+          setPageCount((prev) => setPageCount(prev + 1))
         })
         .catch((error) => {
           console.error(error);
         });
     };
-    fetchData();
-  }, []);
+
+    if (pageCount <= pageLimit) {
+      fetchData();
+    }
+  }, [url, pageCount, characters]);
 
   if (characters.length === 0) return <h1>Loading characters...</h1>
 
@@ -40,7 +49,7 @@ function App() {
       <main className="app-main">
         <Wrap gap={3} justify="center">
           {characters.map((character) => 
-                <ShowCard character={character} key={character.name}/>
+                <ShowCard character={character} key={`${character.id}-${character.name}`}/>
           )}
         </Wrap>
       </main>
