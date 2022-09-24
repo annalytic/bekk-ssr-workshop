@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Text } from "@vygruppen/spor-react";
 import moment from "moment";
+import Image from "next/image";
 
 export const ShowCard = ({ url, episode: { episode, air_date } }) => {
   const [character, setCharacter] = useState({});
@@ -37,7 +38,7 @@ export const ShowCard = ({ url, episode: { episode, air_date } }) => {
       width="fit-content"
     >
       <figure key={character.id}>
-        <img
+        <Image
           id={character.id}
           src={character.image}
           alt={character.name}
