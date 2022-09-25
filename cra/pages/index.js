@@ -11,7 +11,7 @@ const AppContainer = styled.div`
   margin: 0 auto;
 `;
 
-function Index() {
+function Index({ characters }) {
   return (
     <SporProvider language={Language.English}>
       <AppContainer>
@@ -21,10 +21,31 @@ function Index() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
-        <MainApp />
+        <MainApp characters={characters} />
       </AppContainer>
     </SporProvider>
   );
+}
+
+const pageLimit = 3;
+let characters = [];
+let pageCount = 1;
+let url = "https://rickandmortyapi.com/api/character";
+
+export async function getStaticProps() {
+  while (pageCount <= pageLimit) {
+    const response = await fetch(url);
+    const data = await response.json();
+    characters = [...characters, ...data.results];
+    pageCount = pageCount + 1;
+    url = data.info.next;
+  }
+
+  return {
+    props: {
+      characters,
+    },
+  };
 }
 
 export default Index;
