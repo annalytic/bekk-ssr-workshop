@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Text } from "@vygruppen/spor-react";
 import moment from "moment";
+import Image from "next/image";
 
 export const ShowCard = ({
   character: {
@@ -48,7 +49,7 @@ export const ShowCard = ({
       width="fit-content"
     >
       <figure key={id}>
-        <img id={id} src={image} alt={name} width="400px" height="400px" />
+        <Image id={id} src={image} alt={name} width={400} height={400} />
       </figure>
       <Text>{`Name: ${name}`}</Text>
       <Text>{`Location: ${location.name}`}</Text>
