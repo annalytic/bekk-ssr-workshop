@@ -49,7 +49,14 @@ export const ShowCard = ({
       width="fit-content"
     >
       <figure key={id}>
-        <Image id={id} src={image} alt={name} width={400} height={400} />
+        <Image
+          id={id}
+          src={image}
+          alt={name}
+          width={400}
+          height={400}
+          priority={id == 1}
+        />
       </figure>
       <Text>{`Name: ${name}`}</Text>
       <Text>{`Location: ${location.name}`}</Text>
