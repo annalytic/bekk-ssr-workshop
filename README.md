@@ -3,7 +3,7 @@
 ## Oppsett
 
 1. Dra ned repoet lokalt ved å skrive `git clone https://github.com/annalytic/bekk-ssr-workshop.git`.
-2. Kjør opp appen ved å skrive `npm run install` også `npm run start` i terminalen.
+2. Naviger til `cra` mappen og kjør opp appen ved å skrive `npm install` også `npm run start` i terminalen.
 
 ## Oppgave 1
 
