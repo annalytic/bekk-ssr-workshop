@@ -10,6 +10,10 @@
 Appen er laget med <b>Create React App</b>. Oppgaven din er å migrere den over til <b>Next.js</b>. Oppskrift for hvordan det gjøres finner du [her](https://nextjs.org/docs/migrating/from-create-react-app).
 
 ---
+### Tips
+- Pages: En mappe som automatisk setter opp routing per fil. En fil med navn `index.js` vil være default-siden når du kjører appen. 
+- https://nextjs.org/docs/api-reference/next/image#domains
+
 ### Bonusoppgaver
 Les nextjs sitt dokumentasjon angående [getStaticProps](https://nextjs.org/docs/basic-features/data-fetching/get-static-props) og [getServerSideProps](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props)<br/>
 Hint : metodene getServerSideProps og getStaticProps kan kun brukes i page-komponenter. Altså komponenter som ligger i pages-mappa di.
