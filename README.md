@@ -11,7 +11,7 @@ Appen er laget med <b>Create React App</b>. Oppgaven din er å migrere den over 
 
 ---
 ### Bonusoppgaver
-Les nextjs sitt dokumentasjon angående getStaticProps og getServerSideProps<br/>
+Les nextjs sitt dokumentasjon angående [getStaticProps](https://nextjs.org/docs/basic-features/data-fetching/get-static-props) og [getServerSideProps](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props)<br/>
 Hint : metodene getSErverSideProps og getStaticPRops kan kun brukes i page-komponenter. Altså komponenter som ligger i pages-mappa di.
 Fra metoden kan du returnere et props-objekt, som skal matche det props-objektet du tar inn i page-komponenten.
 
